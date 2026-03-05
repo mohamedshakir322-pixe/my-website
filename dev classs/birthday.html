@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Queen | Forever 💜</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --deep-purple: #12002b;
+            --soft-pink: #ff85a2;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* --- LUXURY BACKGROUND --- */
+        #starfield {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #1b003d 0%, #000 100%);
+            z-index: -1;
+        }
+
+        /* --- STAGE SYSTEM --- */
+        .stage {
+            position: absolute;
+            inset: 0;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .active {
+            display: flex;
+            animation: pageIn 1s forwards;
+        }
+
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: scale(1.1) translateY(20px);
+                filter: blur(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        /* --- STAGE 1: CINEMATIC INTRO --- */
+        .heart-particle {
+            position: absolute;
+            pointer-events: none;
+            animation: floatUp linear forwards;
+            filter: drop-shadow(0 0 5px var(--soft-pink));
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(110vh) scale(0);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        #balloon {
+            width: 160px;
+            height: 200px;
+            background: linear-gradient(135deg, #7b2ff7, #f107a3);
+            border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 0 60px rgba(123, 47, 247, 0.4);
+            position: relative;
+            animation: drift 4s ease-in-out infinite;
+        }
+
+        #balloon::after {
+            content: "";
+            position: absolute;
+            bottom: -100px;
+            width: 1px;
+            height: 100px;
+            background: white;
+            opacity: 0.3;
+        }
+
+        @keyframes drift {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(-2deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(2deg);
+            }
+        }
+
+        /* --- STAGE 2: THE PROPOSAL --- */
+        .wife-text {
+            font-size: 3rem;
+            color: var(--gold);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .proposal-btn-box {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 200px;
+        }
+
+        .btn-luxury {
+            padding: 15px 45px;
+            border-radius: 50px;
+            border: 1px solid var(--gold);
+            background: transparent;
+            color: var(--gold);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+            overflow: hidden;
+        }
+
+        #yes-btn {
+            background: var(--gold);
+            color: #000;
+            position: relative;
+            z-index: 10;
+        }
+
+        #no-btn {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* --- STAGE 3: DASHBOARD --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .menu-card {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: 0.4s;
+        }
+
+        .menu-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-10px);
+            border-color: var(--gold);
+        }
+
+        /* --- MEMORIES: SWINGING ROPES --- */
+        .rope-area {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            align-items: flex-start;
+            height: 450px;
+        }
+
+        .rope-item {
+            transform-origin: top center;
+            animation: swing 4s ease-in-out infinite;
+        }
+
+        .rope-string {
+            width: 2px;
+            height: 120px;
+            background: #4a3728;
+            margin: 0 auto;
+        }
+
+        .luxury-frame {
+            width: 180px;
+            height: 220px;
+            background: #fff;
+            padding: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            transform: translateY(-5px);
+        }
+
+        .luxury-frame img {
+            width: 100%;
+            height: 85%;
+            object-fit: cover;
+        }
+
+        .luxury-frame p {
+            color: #333;
+            font-size: 13px;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        @keyframes swing {
+
+            0%,
+            100% {
+                transform: rotate(-6deg);
+            }
+
+            50% {
+                transform: rotate(6deg);
+            }
+        }
+
+        /* --- PROMISES: ONE BY ONE --- */
+        .promise-list {
+            text-align: left;
+            max-width: 500px;
+        }
+
+        .promise-item {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: 0.8s;
+            display: flex;
+            align-items: center;
+        }
+
+        .promise-item::before {
+            content: "✨";
+            margin-right: 15px;
+        }
+
+        /* --- I LOVE YOU: MELTING LETTER --- */
+        #letter-container {
+            max-width: 700px;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            text-align: center;
+            color: var(--soft-pink);
+        }
+
+        .melting {
+            animation: meltAway 5s forwards;
+            animation-delay: 8s;
+        }
+
+        @keyframes meltAway {
+            0% {
+                filter: blur(0);
+                opacity: 1;
+            }
+
+            100% {
+                filter: blur(20px);
+                opacity: 0;
+                transform: translateY(50px);
+            }
+        }
+
+        button.back-btn {
+            margin-top: 40px;
+            background: none;
+            border: 1px solid #555;
+            color: #888;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="starfield"></div>
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="stage1" class="stage active">
+        <div id="balloon" onclick="popBalloon()">HAPPY<br>BIRTHDAY</div>
+    </div>
+
+    <div id="stage2" class="stage">
+        <h1 class="wife-text">Happy Birthday My Wifeyy ❤️</h1>
+        <p style="margin-bottom: 40px; font-style: italic;">Every heartbeat of mine belongs to you...</p>
+        <div class="proposal-btn-box">
+            <h2 style="margin-bottom: 20px;">Will You Marry Me?</h2>
+            <button id="yes-btn" class="btn-luxury" onclick="showDashboard()">YES, FOREVER</button>
+            <button id="no-btn" class="btn-luxury" onmouseover="dodgeNo()">NO</button>
+        </div>
+    </div>
+
+    <div id="stage3" class="stage">
+        <h1 style="color: var(--gold); margin-bottom: 40px;">Choose a Chapter of Our Love</h1>
+        <div class="menu-grid">
+            <div class="menu-card" onclick="goTo('memories')">
+                <h3>📸 Memories</h3>
+                <p>Our story in frames</p>
+            </div>
+            <div class="menu-card" onclick="goTo('promises')">
+                <h3>💍 Promises</h3>
+                <p>My vows to you</p>
+            </div>
+            <div class="menu-card" onclick="goTo('love')">
+                <h3>💌 I Love You</h3>
+                <p>From my soul</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="memories" class="stage">
+        <div class="rope-area">
+            <div class="rope-item">
+                <div class="rope-string"></div>
+                <div class="luxury-frame"><img src="bbavu 7.jpeg">
+                    <p>💎🫂</p>
+                </div>
+            </div>
+            <div class="rope-item">
+                <div class="rope-string"></div>
+                <div class="luxury-frame"><img src="bbavus1 (1).JPG">
+                    <p>Always You & Me </p>
+                </div>
+            </div>
+            <div class="rope-item">
+                <div class="rope-string"></div>
+                <div class="luxury-frame"><img src="bbavus1 (2).JPG">
+                    <p>Your Smile</p>
+                </div>
+            </div>
+            <div class="rope-item">
+                <div class="rope-string"></div>
+                <div class="luxury-frame"><img src="bbavus1 (3).JPG">
+                    <p>I Love You </p>
+                </div>
+            </div>
+            <div class="rope-item">
+                <div class="rope-string"></div>
+                <div class="luxury-frame"><img src="bbavus1 (5).JPG">
+                    <p>Forever Us</p>
+                </div>
+            </div>
+        </div>
+        <button class="back-btn" onclick="goTo('stage3')">← Back to Heart</button>
+    </div>
+
+    <div id="promises" class="stage">
+        <h1 style="color:var(--gold); margin-bottom:30px;">My Promises To You</h1>
+        <div class="promise-list" id="p-list">
+            <div class="promise-item">I promise to love you even when we are old and grey.</div>
+            <div class="promise-item">I promise to be your strength when you feel weak.</div>
+            <div class="promise-item">I promise to never let go of your hand.</div>
+            <div class="promise-item">I promise to make you laugh every single day.</div>
+            <div class="promise-item">I promise you my whole heart, forever.</div>
+        </div>
+        <button class="back-btn" onclick="goTo('stage3')">← Back to Heart</button>
+    </div>
+
+    <div id="love" class="stage">
+        <div id="letter-container">
+            <p id="melting-text"></p>
+        </div>
+        <button class="back-btn" onclick="goTo('stage3')">← Back to Heart</button>
+    </div>
+
+    <script>
+        /* --- HEART RAIN --- */
+        setInterval(() => {
+            const h = document.createElement("div");
+            h.className = "heart-particle";
+            h.innerHTML = "💜";
+            h.style.left = Math.random() * 100 + "vw";
+            h.style.fontSize = (Math.random() * 15 + 10) + "px";
+            h.style.animationDuration = (Math.random() * 3 + 4) + "s";
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 6000);
+        }, 300);
+
+        /* --- NAVIGATION SYSTEM --- */
+        function goTo(stageId) {
+            document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(stageId);
+            target.classList.add('active');
+
+            if (stageId === 'promises') startPromises();
+            if (stageId === 'love') startLetter();
+        }
+
+        /* --- BALLOON POP --- */
+        function popBalloon() {
+            document.getElementById('bgMusic').play();
+            // Firework effect
+            createFireworks(window.innerWidth / 2, window.innerHeight / 2);
+            document.getElementById('stage1').style.opacity = '0';
+            setTimeout(() => goTo('stage2'), 1000);
+        }
+
+        /* --- DODGE NO BUTTON --- */
+        let yesScale = 1;
+        function dodgeNo() {
+            const no = document.getElementById('no-btn');
+            const yes = document.getElementById('yes-btn');
+            no.style.left = Math.random() * 80 + '%';
+            no.style.top = Math.random() * 80 + '%';
+            no.style.position = 'fixed';
+            yesScale += 0.2;
+            yes.style.transform = `scale(${yesScale})`;
+        }
+
+        function showDashboard() { goTo('stage3'); }
+
+        /* --- PROMISE ANIMATION --- */
+        function startPromises() {
+            const items = document.querySelectorAll('.promise-item');
+            items.forEach((item, i) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(-30px)';
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                }, i * 1000);
+            });
+        }
+
+        /* --- MELTING LETTER --- */
+        function startLetter() {
+            const text = "My dearest Wifeyy, from the moment you entered my life, everything changed. You are the grace in my steps and the rhythm in my heart. I wrote this letter to tell you that no matter how much time passes, my love for you only grows deeper and stronger. You are my sanctuary, my greatest adventure, and my best friend. Every day with you feels like a beautiful dream I never want to wake up from. I love you more than words can ever express, more than the stars in the sky, and more than life itself. You are my forever... and always.";
+            const target = document.getElementById('melting-text');
+            target.innerHTML = "";
+            target.classList.remove('melting');
+
+            let i = 0;
+            const timer = setInterval(() => {
+                target.innerHTML += text[i];
+                i++;
+                if (i >= text.length) {
+                    clearInterval(timer);
+                    target.classList.add('melting');
+                }
+            }, 50);
+        }
+
+        /* --- FIREWORKS --- */
+        function createFireworks(x, y) {
+            for (let i = 0; i < 50; i++) {
+                const p = document.createElement('div');
+                p.style.position = 'fixed';
+                p.style.left = x + 'px'; p.style.top = y + 'px';
+                p.style.width = '4px'; p.style.height = '4px';
+                p.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                p.style.borderRadius = '50%';
+                p.style.zIndex = '200';
+                document.body.appendChild(p);
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 10 + 5;
+                const dx = Math.cos(angle) * velocity;
+                const dy = Math.sin(angle) * velocity;
+
+                let op = 1;
+                const move = setInterval(() => {
+                    p.style.left = parseFloat(p.style.left) + dx + 'px';
+                    p.style.top = parseFloat(p.style.top) + dy + 'px';
+                    op -= 0.02; p.style.opacity = op;
+                    if (op <= 0) { clearInterval(move); p.remove(); }
+                }, 20);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Queen's Eternal Kingdom | 💜</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;1,700&family=Montserrat:wght@100;300;400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #dfbb85;
+            --dark: #050507;
+            --royal-purple: #1a0033;
+            --accent: #e0c097;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        #cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s;
+        }
+
+        #bg-container {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1b003d 0%, #050507 100%);
+        }
+
+        .particle {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .petal {
+            position: absolute;
+            pointer-events: none;
+            font-size: 20px;
+            filter: blur(1px);
+            animation: fall 10s linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .stage {
+            position: absolute;
+            inset: 0;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            perspective: 1000px;
+        }
+
+        .active {
+            display: flex;
+            animation: ultraReveal 1.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        }
+
+        @keyframes ultraReveal {
+            0% { opacity: 0; transform: scale(1.1) rotateX(15deg); filter: blur(15px); }
+            100% { opacity: 1; transform: scale(1) rotateX(0deg); filter: blur(0); }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, #fff, var(--gold), #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .luxury-btn {
+            background: none;
+            border: 1px solid var(--gold);
+            padding: 15px 35px;
+            color: var(--gold);
+            font-family: 'Cinzel Decorative';
+            letter-spacing: 5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: 0.5s;
+            margin: 10px;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+        }
+
+        .luxury-btn:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 30px rgba(223, 187, 133, 0.4);
+        }
+
+        .small-portrait-frame {
+            width: 220px;
+            height: 390px;
+            background: #fff;
+            padding: 10px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--gold);
+            margin: 20px 0;
+        }
+
+        .small-portrait-frame video {
+            width: 100%;
+            height: 88%;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .sanctuary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 900px;
+        }
+
+        .nav-card {
+            background: var(--glass);
+            border: 1px solid rgba(223, 187, 133, 0.1);
+            padding: 25px 15px;
+            transition: 0.6s;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            background: rgba(223, 187, 133, 0.1);
+        }
+
+        .gold-frame {
+            min-width: 280px;
+            height: 450px;
+            background: #fff;
+            padding: 15px;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+        }
+
+        .gold-frame img, .gold-frame video {
+            width: 100%;
+            height: 85%;
+            object-fit: cover;
+        }
+
+        .museum-flex {
+            display: flex;
+            gap: 40px;
+            overflow-x: auto;
+            padding: 50px;
+            width: 100vw;
+            scrollbar-width: none;
+        }
+
+        .museum-flex::-webkit-scrollbar { display: none; }
+
+        .back-nav {
+            margin-top: 30px;
+            color: var(--gold);
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            cursor: pointer;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="cursor"></div>
+    <div id="bg-container"></div>
+
+    <div id="stage1" class="stage active">
+        <h2 style="font-weight: 100; letter-spacing: 15px; margin-bottom: 20px;">THE KINGDOM OF</h2>
+        <h1 class="shimmer" style="font-family: 'Cinzel Decorative'; font-size: 3.5rem; margin-bottom: 30px;">HER MAJESTY</h1>
+        <button class="luxury-btn" onclick="goTo('stage2')">Approach the Throne</button>
+    </div>
+
+    <div id="stage2" class="stage">
+        <h3 style="letter-spacing: 10px; color: var(--gold);">22 MARCH 2026</h3>
+        <h1 class="shimmer" style="font-family: 'Playfair Display'; font-size: 4rem; font-style: italic;">Happy Birthday, Wifey</h1>
+        <button class="luxury-btn" onclick="goTo('valentine-ask')">Explore Her Eternity</button>
+    </div>
+
+    <div id="valentine-ask" class="stage">
+        <h1 class="shimmer" style="font-family: 'Playfair Display'; font-size: 3rem;">Heyy baby...</h1>
+        <h2 style="font-family: 'Cinzel Decorative'; color: var(--gold); margin: 15px 0;">Will you be my Valentine?</h2>
+        <div>
+            <button class="luxury-btn" onclick="goTo('valentine-yes')">Yes</button>
+            <button class="luxury-btn" id="btn-no" onmouseover="moveNo()">No</button>
+        </div>
+    </div>
+
+    <div id="valentine-yes" class="stage">
+        <h1 class="shimmer" style="font-family: 'Playfair Display'; font-size: 2.5rem;">I knew you would!</h1>
+        <div class="small-portrait-frame">
+            <video autoplay loop muted playsinline>
+                <source src="VALENTINE_VIDEO.mp4" type="video/mp4">
+            </video>
+            <p style="color:#222; font-family:'Playfair Display'; font-weight:700; font-size: 0.9rem; margin-top:8px;">I LOVE YOU</p>
+        </div>
+        <button class="luxury-btn" onclick="goTo('dashboard')">Go Through</button>
+    </div>
+
+    <div id="dashboard" class="stage">
+        <div class="sanctuary-grid">
+            <div class="nav-card" onclick="goTo('gallery')">
+                <h2 style="font-family: 'Cinzel Decorative'; color: var(--gold); font-size: 1rem;">I. MUSEUM</h2>
+                <p style="font-size: 0.6rem;">7 Icons of Us</p>
+            </div>
+            <div class="nav-card" onclick="goTo('vows')">
+                <h2 style="font-family: 'Cinzel Decorative'; color: var(--gold); font-size: 1rem;">II. SACRED</h2>
+                <p style="font-size: 0.6rem;">Eternal Oaths</p>
+            </div>
+            <div class="nav-card" onclick="goTo('universe')">
+                <h2 style="font-family: 'Cinzel Decorative'; color: var(--gold); font-size: 1rem;">III. STATS</h2>
+                <p style="font-size: 0.6rem;">The Queen's Nature</p>
+            </div>
+            <div class="nav-card" onclick="goTo('timeline')">
+                <h2 style="font-family: 'Cinzel Decorative'; color: var(--gold); font-size: 1rem;">IV. JOURNEY</h2>
+                <p style="font-size: 0.6rem;">Our Infinite Path</p>
+            </div>
+            <div class="nav-card" onclick="goTo('letter')">
+                <h2 style="font-family: 'Cinzel Decorative'; color: var(--gold); font-size: 1rem;">V. SOUL</h2>
+                <p style="font-size: 0.6rem;">A Royal Decree</p>
+            </div>
+            <div class="nav-card" onclick="goTo('memories')">
+                <h2 style="font-family: 'Cinzel Decorative'; color: var(--gold); font-size: 1rem;">VI. MEMORIES</h2>
+                <p style="font-size: 0.6rem;">6 Captured Moments</p>
+            </div>
+            <div class="nav-card" onclick="makeWish()" style="grid-column: span 3;">
+                <h2 style="font-family: 'Cinzel Decorative'; color: var(--gold); font-size: 1.2rem;">VII. WISH</h2>
+                <p style="font-size: 0.7rem;">Ignite the Stars</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="vows" class="stage">
+        <h1 class="shimmer" style="font-family: 'Cinzel Decorative'; font-size: 2.5rem;">ETERNAL OATHS</h1>
+        <div style="max-width: 600px; line-height: 2; font-style: italic; color: var(--gold); margin-top: 20px; font-family: 'Playfair Display'; font-size: 1.2rem;">
+            <p>"To the moon and all the stars, I promise to protect your light."</p>
+            <p style="margin-top: 20px;">"Your heart is the only kingdom I wish to inhabit, today and for all my tomorrows."</p>
+        </div>
+        <p class="back-nav" onclick="goTo('dashboard')">← Return</p>
+    </div>
+
+    <div id="universe" class="stage">
+        <h1 class="shimmer" style="font-family: 'Cinzel Decorative'; margin-bottom: 30px;">THE QUEEN'S NATURE</h1>
+        <div class="sanctuary-grid">
+            <div class="nav-card">
+                <h3 style="color: var(--gold); font-family: 'Cinzel Decorative';">KINDNESS</h3>
+                <p style="font-size: 1.5rem; margin-top: 10px;">100%</p>
+            </div>
+            <div class="nav-card">
+                <h3 style="color: var(--gold); font-family: 'Cinzel Decorative';">GRACE</h3>
+                <p style="font-size: 1.5rem; margin-top: 10px;">INFINITE</p>
+            </div>
+            <div class="nav-card">
+                <h3 style="color: var(--gold); font-family: 'Cinzel Decorative';">BEAUTY</h3>
+                <p style="font-size: 1.5rem; margin-top: 10px;">ETHEREAL</p>
+            </div>
+        </div>
+        <p class="back-nav" onclick="goTo('dashboard')">← Return</p>
+    </div>
+
+    <div id="timeline" class="stage">
+        <h1 class="shimmer" style="font-family: 'Cinzel Decorative'; margin-bottom: 30px;">OUR INFINITE PATH</h1>
+        <div style="text-align: left; border-left: 2px solid var(--gold); padding-left: 30px; max-width: 500px;">
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: var(--gold); font-family: 'Cinzel Decorative';">THE DAWN</h3>
+                <p style="font-size: 0.9rem; opacity: 0.8;">The day the universe brought us together.</p>
+            </div>
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: var(--gold); font-family: 'Cinzel Decorative';">THE ASCENT</h3>
+                <p style="font-size: 0.9rem; opacity: 0.8;">Every milestone and memory we've shared.</p>
+            </div>
+            <div>
+                <h3 style="color: var(--gold); font-family: 'Cinzel Decorative';">THE FOREVER</h3>
+                <p style="font-size: 0.9rem; opacity: 0.8;">A future written in the stars, starting now.</p>
+            </div>
+        </div>
+        <p class="back-nav" onclick="goTo('dashboard')">← Return</p>
+    </div>
+
+    <div id="letter" class="stage">
+        <div class="gold-frame" style="height: auto; min-height: 400px; background: rgba(255,255,255,0.05); color: #fff; padding: 40px; display: flex; flex-direction: column; justify-content: center;">
+            <h2 class="shimmer" style="font-family: 'Playfair Display'; margin-bottom: 20px; font-style: italic;">A Royal Decree</h2>
+            <p style="font-family: 'Montserrat'; font-weight: 300; font-size: 1rem; line-height: 2; letter-spacing: 1px;">
+                To my beautiful wife,<br><br>
+                You are the grace in my life and the peace in my soul. 
+                This kingdom was built for you, but you are the one who gives it meaning. 
+                May your day be as radiant as your smile.
+                <br><br>
+                Forever Yours.
+            </p>
+        </div>
+        <p class="back-nav" onclick="goTo('dashboard')">← Return</p>
+    </div>
+
+    <div id="memories" class="stage">
+        <h2 class="shimmer" style="font-family: 'Cinzel Decorative'; margin-bottom: 10px;">CAPTURED ETERNITY</h2>
+        <div class="museum-flex">
+            <div class="gold-frame"><video controls><source src="vide to pub (3).mp4"></video><p style="color:#222; margin-top:10px; font-weight:700;">Moment I</p></div>
+            <div class="gold-frame"><video controls><source src="vide to pub (2).mp4"></video><p style="color:#222; margin-top:10px; font-weight:700;">Moment II</p></div>
+            <div class="gold-frame"><video controls><source src="vide to pub (1).mp4"></video><p style="color:#222; margin-top:10px; font-weight:700;">Moment III</p></div>
+            <div class="gold-frame"><video controls><source src="IMG_6674.MOV"></video><p style="color:#222; margin-top:10px; font-weight:700;">Moment IV</p></div>
+            <div class="gold-frame"><video controls><source src="vide to pub (2).mp4"></video><p style="color:#222; margin-top:10px; font-weight:700;">Moment V</p></div>
+            <div class="gold-frame"><video controls><source src="vide to pub (1).MOV"></video><p style="color:#222; margin-top:10px; font-weight:700;">Moment VI</p></div>
+        </div>
+        <p class="back-nav" onclick="goTo('dashboard')">← Return</p>
+    </div>
+
+    <div id="gallery" class="stage">
+        <div class="museum-flex">
+            <div class="gold-frame"><img src="WIFE (5).JPG"><p style="color:#222; margin-top:10px; font-weight:700;">Divine Presence</p></div>
+            <div class="gold-frame"><img src="WIFE (2).jpeg"><p style="color:#222; margin-top:10px; font-weight:700;">Radiant Smile</p></div>
+            <div class="gold-frame"><img src="WIFE (2).JPG"><p style="color:#222; margin-top:10px; font-weight:700;">Eternal Partner</p></div>
+            <div class="gold-frame"><img src="WIFE (3).JPG"><p style="color:#222; margin-top:10px; font-weight:700;">Pure Soul</p></div>
+            <div class="gold-frame"><img src="WIFE (4).JPG"><p style="color:#222; margin-top:10px; font-weight:700;">My Sanctuary</p></div>
+            <div class="gold-frame"><img src="WIFE (1).jpeg"><p style="color:#222; margin-top:10px; font-weight:700;">The Queen Consort</p></div>
+            <div class="gold-frame"><img src="WIFE (1).JPG"><p style="color:#222; margin-top:10px; font-weight:700;">Forever Mine</p></div>
+        </div>
+        <p class="back-nav" onclick="goTo('dashboard')">← Return</p>
+    </div>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        function moveNo() {
+            const btn = document.getElementById('btn-no');
+            const x = Math.random() * (window.innerWidth - 120);
+            const y = Math.random() * (window.innerHeight - 80);
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function initMagic() {
+            const container = document.getElementById('bg-container');
+            for (let i = 0; i < 100; i++) {
+                const s = document.createElement('div');
+                s.className = 'particle';
+                s.style.width = s.style.height = Math.random() * 2 + 'px';
+                s.style.left = Math.random() * 100 + '%';
+                s.style.top = Math.random() * 100 + '%';
+                container.appendChild(s);
+            }
+            const petals = ['💜', '✨', '🌸'];
+            setInterval(() => {
+                const p = document.createElement('div');
+                p.className = 'petal';
+                p.innerHTML = petals[Math.floor(Math.random() * petals.length)];
+                p.style.left = Math.random() * 100 + 'vw';
+                container.appendChild(p);
+                setTimeout(() => p.remove(), 10000);
+            }, 800);
+        }
+        initMagic();
+
+        function goTo(id) {
+            document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        function makeWish() {
+            alert(". I LOVE YO BBAVUUUUUUUUUUUUUUUUUUUU💜");
+        }
+    </script>
+</body>
+
+</html>
